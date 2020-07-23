@@ -6,15 +6,19 @@ class Invader {
     };
     this.pos = pos;
     this.range = range;
+    this.identify = true;
   }
   draw_invader() {
     switch (this.range) {
-      case "ufo":
-        this.draw_ufo();
+      case "octopus":
+        this.draw_octopus();
         break;
 
       case "skull":
         this.draw_skull();
+        break;
+      case "crab":
+        this.draw_crab();
         break;
     }
   }
@@ -22,7 +26,7 @@ class Invader {
     this.pos = pos;
   }
 
-  draw_ufo() {
+  draw_octopus() {
     // Body
     push();
     rectMode(CENTER);
@@ -30,9 +34,115 @@ class Invader {
     stroke("#00bcd5");
     rect(
       this.pos.x,
-      
-    )
+      this.pos.y - this.rule.cell_width * 3,
+      this.rule.cell_width * 2,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width * 2,
+      this.rule.cell_width * 6,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width,
+      this.rule.body_width * this.rule.cell_width,
+      this.rule.cell_width
+    );
+
+    rect(
+      this.pos.x,
+      this.pos.y,
+      this.rule.body_width * this.rule.cell_width,
+      this.rule.cell_width
+    );
+
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width,
+      this.rule.body_width * this.rule.cell_width,
+      this.rule.cell_width
+    );
+
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 2,
+      this.rule.cell_width * 4,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 3,
+      this.rule.cell_width * 6,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 4,
+      this.rule.cell_width * this.rule.body_width,
+      this.rule.cell_width
+    );
+
     pop();
+    push();
+    rectMode(CENTER);
+    fill(0);
+    stroke(0);
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 4,
+      this.rule.cell_width * 6,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 3,
+      this.rule.cell_width * 4,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 2,
+      this.rule.cell_width * 2,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y,
+      this.rule.cell_width * 6,
+      this.rule.cell_width
+    );
+    pop();
+    push();
+    rectMode(CENTER);
+    fill("#00bcd5");
+    stroke("#00bcd5");
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 3,
+      this.rule.cell_width * 2,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y,
+      this.rule.cell_width * 2,
+      this.rule.cell_width
+    );
+    pop();
+    if (this.identify) {
+      push();
+      textAlign(CENTER, CENTER);
+      fill("orange");
+      stroke("orange");
+      text(
+        "Octopus",
+        this.pos.x,
+        this.pos.y + this.rule.cell_width * 10
+         );
+      pop();
+    }
   }
   draw_skull() {
     //   Body
@@ -142,19 +252,25 @@ class Invader {
     pop();
     pop();
   }
+
+  draw_crab() {
+    push();
+
+    pop();
+  }
 }
 
 var i;
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(0);
-  // Possible types of invaders => [ ufo, skull, ]
-  i = new Invader(createVector(windowWidth / 2, windowHeight / 2), "ufo");
+  // Possible types of invaders => [ octopus, skull, crab]
+  i = new Invader(createVector(windowWidth / 2, windowHeight / 2), "skull");
   i.draw_invader();
 }
 
 function draw() {
-  //   background(0);
-  //   i.draw_invader();
-  //   i.update_pos(createVector(mouseX, mouseY));
+  // background(0);
+  // i.draw_invader();
+  // i.update_pos(createVector(mouseX, mouseY));
 }
