@@ -1,32 +1,43 @@
+/*
+███████╗██████╗  █████╗  ██████╗███████╗    ██╗███╗   ██╗██╗   ██╗ █████╗ ██████╗ ███████╗██████╗ ███████╗
+██╔════╝██╔══██╗██╔══██╗██╔════╝██╔════╝    ██║████╗  ██║██║   ██║██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔════╝
+███████╗██████╔╝███████║██║     █████╗      ██║██╔██╗ ██║██║   ██║███████║██║  ██║█████╗  ██████╔╝███████╗
+╚════██║██╔═══╝ ██╔══██║██║     ██╔══╝      ██║██║╚██╗██║╚██╗ ██╔╝██╔══██║██║  ██║██╔══╝  ██╔══██╗╚════██║
+███████║██║     ██║  ██║╚██████╗███████╗    ██║██║ ╚████║ ╚████╔╝ ██║  ██║██████╔╝███████╗██║  ██║███████║
+╚══════╝╚═╝     ╚═╝  ╚═╝ ╚═════╝╚══════╝    ╚═╝╚═╝  ╚═══╝  ╚═══╝  ╚═╝  ╚═╝╚═════╝ ╚══════╝╚═╝  ╚═╝╚══════╝
+  - Space Invaders game made on p5.js ...
+*/
 class Invader {
-  constructor(pos, range) {
+  constructor(pos) {
     this.rule = {
       cell_width: 10,
       body_width: 8,
     };
     this.pos = pos;
-    this.range = range;
-    this.identify = true;
-  }
-  draw_invader() {
-    switch (this.range) {
-      case "octopus":
-        this.draw_octopus();
-        break;
-
-      case "skull":
-        this.draw_skull();
-        break;
-      case "crab":
-        this.draw_crab();
-        break;
-    }
+    this.scale = 0.6;
   }
   update_pos(pos) {
     this.pos = pos;
   }
-
-  draw_octopus() {
+}
+/*
+  ..#######...######..########..#######..########..##.....##..######.
+  .##.....##.##....##....##....##.....##.##.....##.##.....##.##....##
+  .##.....##.##..........##....##.....##.##.....##.##.....##.##......
+  .##.....##.##..........##....##.....##.########..##.....##..######.
+  .##.....##.##..........##....##.....##.##........##.....##.......##
+  .##.....##.##....##....##....##.....##.##........##.....##.##....##
+  ..#######...######.....##.....#######..##.........#######...######.
+  */
+class Octopus extends Invader {
+  constructor(pos) {
+    super(pos);
+    var self = this;
+  }
+  draw() {
+    push();
+    scale(this.scale);
+    beginShape();
     // Body
     push();
     rectMode(CENTER);
@@ -50,21 +61,18 @@ class Invader {
       this.rule.body_width * this.rule.cell_width,
       this.rule.cell_width
     );
-
     rect(
       this.pos.x,
       this.pos.y,
       this.rule.body_width * this.rule.cell_width,
       this.rule.cell_width
     );
-
     rect(
       this.pos.x,
       this.pos.y + this.rule.cell_width,
       this.rule.body_width * this.rule.cell_width,
       this.rule.cell_width
     );
-
     rect(
       this.pos.x,
       this.pos.y + this.rule.cell_width * 2,
@@ -83,7 +91,6 @@ class Invader {
       this.rule.cell_width * this.rule.body_width,
       this.rule.cell_width
     );
-
     pop();
     push();
     rectMode(CENTER);
@@ -128,23 +135,31 @@ class Invader {
       this.pos.x,
       this.pos.y,
       this.rule.cell_width * 2,
-      this.rule.cell_width
+      this.rule.cell_width + 2
     );
     pop();
-    if (this.identify) {
-      push();
-      textAlign(CENTER, CENTER);
-      fill("orange");
-      stroke("orange");
-      text(
-        "Octopus",
-        this.pos.x,
-        this.pos.y + this.rule.cell_width * 10
-         );
-      pop();
-    }
+    endShape();
+    pop();
+  } // Ends Draw
+}
+/*
+  ..######..##....##.##.....##.##.......##......
+  .##....##.##...##..##.....##.##.......##......
+  .##.......##..##...##.....##.##.......##......
+  ..######..#####....##.....##.##.......##......
+  .......##.##..##...##.....##.##.......##......
+  .##....##.##...##..##.....##.##.......##......
+  ..######..##....##..#######..########.########
+  */
+class Skull extends Invader {
+  constructor(pos) {
+    super(pos);
+    var self = this;
   }
-  draw_skull() {
+  draw() {
+    push();
+    scale(this.scale);
+    beginShape();
     //   Body
     push();
     rectMode(CENTER);
@@ -245,32 +260,381 @@ class Invader {
     stroke("green");
     rect(
       this.pos.x,
-      this.pos.y + this.rule.cell_width * 2,
+      this.pos.y + this.rule.cell_width * 2 - 1,
       this.rule.cell_width * 2,
       this.rule.cell_width
     );
     pop();
     pop();
+    endShape();
+    pop();
+  } // Ends Draw
+}
+
+/*
+.########.####..######..##....##
+....##.....##..##....##.##...##.
+....##.....##..##.......##..##..
+....##.....##..##.......#####...
+....##.....##..##.......##..##..
+....##.....##..##....##.##...##.
+....##....####..######..##....##
+*/
+class Tick extends Invader {
+  constructor(pos) {
+    super(pos);
+    var self = this;
+    this.rule.body_width = 10;
+    this.color = {
+      r: 252,
+      g: 184,
+      b: 25,
+    };
   }
-
-  draw_crab() {
+  draw() {
     push();
-
+    scale(this.scale);
+    beginShape();
+    // Body
+    push();
+    rectMode(CENTER);
+    fill(this.color.r, this.color.g, this.color.b);
+    stroke(this.color.r, this.color.g, this.color.b);
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width * 4,
+      this.rule.cell_width * 6,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width * 3,
+      this.rule.cell_width * 4,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width * 2,
+      this.rule.cell_width * 6,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width,
+      this.rule.cell_width * 8,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y,
+      this.rule.cell_width * this.rule.body_width,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width,
+      this.rule.cell_width * this.rule.body_width,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 2,
+      this.rule.cell_width * 4,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 3,
+      this.rule.cell_width * 6,
+      this.rule.cell_width
+    );
+    pop();
+    push();
+    rectMode(CENTER);
+    fill(0);
+    stroke(0);
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 3,
+      this.rule.cell_width * 4,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 2,
+      this.rule.cell_width * 2,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width,
+      this.rule.cell_width * 8,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width,
+      this.rule.cell_width * 4,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width * 3,
+      this.rule.cell_width * 2,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width * 4,
+      this.rule.cell_width * 4,
+      this.rule.cell_width
+    );
+    pop();
+    push();
+    rectMode(CENTER);
+    fill(this.color.r, this.color.g, this.color.b);
+    stroke(this.color.r, this.color.g, this.color.b);
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width,
+      this.rule.cell_width * 6,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width,
+      this.rule.cell_width * 2,
+      this.rule.cell_width
+    );
+    pop();
+    endShape();
     pop();
   }
 }
 
-var i;
+/*
+....###....##....##.########
+...##.##...###...##....##...
+..##...##..####..##....##...
+.##.....##.##.##.##....##...
+.#########.##..####....##...
+.##.....##.##...###....##...
+.##.....##.##....##....##...
+*/
+
+class Ant extends Invader {
+  constructor(pos) {
+    super(pos);
+    var self = this;
+    this.rule.body_width = 10;
+    this.color = {
+      r: 187,
+      g: 150,
+      b: 95,
+    };
+  }
+  draw() {
+    push();
+    scale(this.scale);
+    beginShape();
+    push();
+    rectMode(CENTER);
+    fill(this.color.r, this.color.g, this.color.b);
+    stroke(this.color.r, this.color.g, this.color.b);
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width * 4,
+      this.rule.cell_width * 4,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width * 3,
+      this.rule.cell_width * 2,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width * 2,
+      this.rule.cell_width * this.rule.body_width,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width,
+      this.rule.cell_width * this.rule.body_width,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y,
+      this.rule.cell_width * this.rule.body_width,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width,
+      this.rule.cell_width * this.rule.body_width,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 2,
+      this.rule.cell_width * this.rule.body_width,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 3,
+      this.rule.cell_width * this.rule.body_width,
+      this.rule.cell_width
+    );
+    pop();
+    push();
+    rectMode(CENTER);
+    fill(0);
+    stroke(0);
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width * 2,
+      this.rule.cell_width * 8,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width,
+      this.rule.cell_width * 6,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 3,
+      this.rule.cell_width * 6,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 2,
+      this.rule.cell_width * 8,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width,
+      this.rule.cell_width * 8,
+      this.rule.cell_width
+    );
+    pop();
+    push();
+    rectMode(CENTER);
+    fill(this.color.r, this.color.g, this.color.b);
+    stroke(this.color.r, this.color.g, this.color.b);
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width * 2,
+      this.rule.cell_width * 4,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width,
+      this.rule.cell_width * 2,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width * 2,
+      this.rule.cell_width * 2,
+      this.rule.cell_width
+    );
+    rect(
+      this.pos.x,
+      this.pos.y + this.rule.cell_width,
+      this.rule.cell_width * 4,
+      this.rule.cell_width
+    );
+    pop();
+    push();
+    rectMode(CENTER);
+    fill(0);
+    stroke(0);
+    rect(
+      this.pos.x,
+      this.pos.y - this.rule.cell_width * 4,
+      this.rule.cell_width * 2,
+      this.rule.cell_width
+    );
+    pop();
+    endShape();
+    pop();
+  }
+}
+
+
+/*
+.########.########...#######...######..
+.##.......##.....##.##.....##.##....##.
+.##.......##.....##.##.....##.##.......
+.######...########..##.....##.##...####
+.##.......##...##...##.....##.##....##.
+.##.......##....##..##.....##.##....##.
+.##.......##.....##..#######...######..
+*/
+
+
+class Frog extends Invader {
+  constructor(pos) {
+    super(pos);
+    var self = this;
+    this.rule.body_width = 10;
+    this.color = {
+      r: 125,
+      g: 203,
+      b: 153,
+    };
+  }
+  draw() {
+    push();
+    // scale(this.scale);
+    beginShape();
+    push();
+    rectMode(CENTER);
+    fill(this.color.r, this.color.g, this.color.b);
+    stroke(this.color.r, this.color.g, this.color.b);
+    rect(this.pos.x,this.pos.y, this.rule.cell_width*this.rule.body_width,this.rule.cell_width);
+    rect(this.pos.x,this.pos.y+this.rule.cell_width, this.rule.cell_width*8,this.rule.cell_width);
+    rect(this.pos.x,this.pos.y+this.rule.cell_width*2, this.rule.cell_width*8,this.rule.cell_width);
+    rect(this.pos.x,this.pos.y+this.rule.cell_width*3, this.rule.cell_width*8,this.rule.cell_width);
+    rect(this.pos.x,this.pos.y+this.rule.cell_width*4, this.rule.cell_width*this.rule.body_width,this.rule.cell_width);
+    
+    pop();
+    
+    endShape();
+    pop();
+  }
+}
+
+
+
+
+
+
+
+var i, j;
+var army = [];
 function setup() {
   createCanvas(windowWidth, windowHeight);
   background(0);
-  // Possible types of invaders => [ octopus, skull, crab]
-  i = new Invader(createVector(windowWidth / 2, windowHeight / 2), "skull");
-  i.draw_invader();
-}
+  // Possible types of invaders => [ Octopus, Skull, Tick, Ant, Frog]
 
+  j = new Frog(createVector(width / 2, height / 2));
+  j.draw();
+}
 function draw() {
   // background(0);
-  // i.draw_invader();
-  // i.update_pos(createVector(mouseX, mouseY));
+  // j.update_pos(createVector(
+  //   random(width),
+  //   random(height)
+  // ))
+  // j.draw();
 }

@@ -6,8 +6,10 @@ class Individual {
     this.pos = _pos;
 	this.acc = _acc;
 	this.infected = false;
+  this.movement = Math.random()*10>5? 'lineal':Math.random()*10<5? 'random':'fixed';
   }
   update() {
+
     if (this.pos.x <= config.field_limits.x_start + 4) {
       this.acc.x *= -1;
     } else if (this.pos.x >= config.field_limits.field_width + 15) {
@@ -18,15 +20,37 @@ class Individual {
       this.acc.y *= -1;
     }
 
+    if(this.movement!='fixed'){
+    
+
+    if(this.movement=='lineal'){
     this.pos.add(this.acc);
-  }
-  check_hit(i) {
-    if (this.pos.dist(i) <= 4) {
-      return true;
-    } else {
-      return false;
+      
     }
+    if(this.movement=='random'){
+
+  if (this.pos.x < config.field_limits.x_start + 4) {
+      this.pos.x =config.field_limits.x_start+4;
+    } else if (this.pos.x > config.field_limits.field_width + 15) {
+      this.pos.x =config.field_limits.field_width + 15;
+    } else if (this.pos.y < config.field_limits.y_start + 4) {
+      this.pos.y =config.field_limits.y_start + 4;
+    } else if (this.pos.y > config.field_limits.field_height + 15) {
+      this.pos.y =config.field_limits.field_height + 15;
+    }
+
+
+    this.pos.add(createVector(
+      random(-3,3),
+      random(-3,3)
+      ));
+      
+    }
+    }
+
+
   }
+  
   draw() {
 	push();
 	ellipseMode(CENTER);
@@ -69,7 +93,19 @@ class Population {
   }
   updatePopulation() {
 
-	 
+    // Check for infections.
+	 for(let i of this.individuals){
+    if(i.infected){
+      for(let j of this.individuals){
+        if(!j.infected){
+          if(dist(i.pos.x,i.pos.y,j.pos.x,j.pos.y)<=10){
+            j.infected = true;
+          };
+
+        }
+      }
+    }
+   }
  
 	
     for (var i = 0; i <= this.individuals.length - 1; i++) {
@@ -96,7 +132,7 @@ function drawField() {
   pop();
 }
 
-var _pop = new Population(10);
+var _pop = new Population(50);
 
 function setup() {
   config = {
