@@ -20,5 +20,5 @@
 </div>
 <br>
 <div align='center'>
-You can see [HERE.](https://codepen.io/torrezmn/pen/rNyyKQy)
+You can see it running [here](https://codepen.io/torrezmn/pen/rNyyKQy).
 </div>
