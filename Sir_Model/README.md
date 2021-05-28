@@ -1,18 +1,7 @@
 ---
-                sSSs   .S   .S_sSSs           .S_SsS_S.     sSSs_sSSs     .S_sSSs      sSSs  S.
-               d%%SP  .SS  .SS~YS%%b         .SS~S*S~SS.   d%%SP~YS%%b   .SS~YS%%b    d%%SP  SS.
-              d%S'    S%S  S%S   `S%b        S%S `Y' S%S  d%S'     `S%b  S%S   `S%b  d%S'    S%S
-              S%|     S%S  S%S    S%S        S%S     S%S  S%S       S%S  S%S    S%S  S%S     S%S
-              S&S     S&S  S%S    d*S        S%S     S%S  S&S       S&S  S%S    S&S  S&S     S&S
-              Y&Ss    S&S  S&S   .S*S        S&S     S&S  S&S       S&S  S&S    S&S  S&S_Ss  S&S
-              `S&&S   S&S  S&S_sdSSS         S&S     S&S  S&S       S&S  S&S    S&S  S&S~SP  S&S
-                `S*S  S&S  S&S~YSY%b         S&S     S&S  S&S       S&S  S&S    S&S  S&S     S&S
-                 l*S  S*S  S*S   `S%b        S*S     S*S  S*b       d*S  S*S    d*S  S*b     S*b
-                .S*P  S*S  S*S    S%S        S*S     S*S  S*S.     .S*S  S*S   .S*S  S*S.    S*S.
-              sSS*S   S*S  S*S    S&S        S*S     S*S   SSSbs_sdSSS   S*S_sdSSS    SSSbs   SSSbs
-              YSS'    S*S  S*S    SSS        SSS     S*S    YSSP~YSSY    SSS~YSSY      YSSP    YSSP
-                      SP   SP                        SP
-                      Y    Y                         Y
+<div align='center'>
+<h1>Sir Model Simulation</h1>
+</div>
 ---
 
 <div align='center'>

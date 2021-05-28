@@ -29,7 +29,7 @@
 - [Deployment](#deployment)
 - [Usage](#usage)
 - [Built Using](#built_using)
-- [TODO](../TODO.md)
+- [Bricks Game](../Computer-Graphics/Bricks_Game/README.md)
 - [Contributing](../CONTRIBUTING.md)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
