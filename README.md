@@ -17,7 +17,9 @@
 
 
 <p align="center">
-  Some things related to 'Computer Graphics'. Basically try this and that with p5js ...
+  Some things related to 'Computer Graphics'. Basically try this and that with p5js ... 
+  </br>
+  (More graphics than something else ...) 
 </p>
 
 ## 📝 Table of Contents
