@@ -1,10 +1,9 @@
----
+
 
 <div align='center'>
     <h1>Bricks Game</h1>
 </div>
 
----
 
 <div align='center'>
 <h3>This is the classic 'BRICKS' console game implemented using P5JS. </h3>
