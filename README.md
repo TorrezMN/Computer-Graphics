@@ -30,7 +30,7 @@
 - [Usage](#usage)
 - [Built Using](#built_using)
 - [Bricks Game](./Bricks_Game)
-- [Contributing](../CONTRIBUTING.md)
+- [Sir Model](./Sir_Model)
 - [Authors](#authors)
 - [Acknowledgments](#acknowledgement)
 

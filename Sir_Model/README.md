@@ -1,7 +1,7 @@
 ---
 
 <div align='center'>
-<h1>Sir Model Simulation</h1>
+    <h1>Sir Model Simulation</h1>
 </div>
 
 ---
