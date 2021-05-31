@@ -22,27 +22,12 @@ class Cell {
 		this.draw_cell();
 	}
 	draw_cell() {
-		if (this.val % 3 == 0) {
-			push();
-			fill(this.colors.red);
-			stroke(this.colors.red);
-			ellipse(this.pos.x, this.pos.y, 5, 5);
-			pop();
-		}
-		if (this.val % 5 == 0) {
-			push();
-			fill(this.colors.blue);
-			stroke(this.colors.blue);
-			ellipse(this.pos.x, this.pos.y, 5, 5);
-			pop();
-		}
-		if (this.val % 3 == 0 && this.val % 5 == 0) {
-			push();
-			fill(this.colors.blue);
-			stroke(this.colors.blue);
-			ellipse(this.pos.x, this.pos.y, 5, 5);
-			pop();
-		}
+		push();
+		fill('#FFFFFF');
+		stroke('#FFFFFF');
+		textAlign(CENTER, CENTER);
+		text(this.val, this.pos.x,this.pos.y);
+		pop();
 	}
 
 }
@@ -53,15 +38,15 @@ var grid = [];
 function setup() {
 	createCanvas(windowWidth, windowHeight);
 	background(0);
-	let x = windowWidth * 0.15;
-	let y = windowHeight * 0.15;
-	for (let i of [...Array(50).keys()]) {
-		for (let i of [...Array(80).keys()]) {
+	let x = windowWidth * 0.05;
+	let y = windowHeight * 0.10;
+	for (let i of [...Array(20).keys()]) {
+		for (let i of [...Array(10).keys()]) {
 			grid.push(new Cell(createVector(x, y)))
-			x += 10;
+			x += 13;
 		}
-		x = windowWidth * 0.15;
-		y += 10;
+		x = windowWidth * 0.05;
+		y += 13;
 	}
 
 }
